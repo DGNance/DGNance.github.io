@@ -20,7 +20,7 @@
             <div class="card-body">
                 <h4 class="text-center text-white mt-3"><i class="bi bi-geo-fill"></i></h4>
                 <h2 class="text-center mb-4 text-white" id="txtLocation"></h2>
-                <h1 class="text-white text-center mt-4" id="WeatherIcon"></h1>
+                <h1 class="text-white text-center mt-4 mb-4" id="WeatherIcon"></h1>
                 <h2 class="text-white text-center mt-2" id="txtTemperature"></h2>
                 <hr class="text-white">
                 <div style="display:inline-block;" class="text-center">
@@ -62,12 +62,14 @@
 
         //Function to find the devices longitude and latitude for the API
         async function QueryLongitudeAndLatitude(position){
+            //Assigns the coordinates to their respective values
             const numLatitude = position.coords.latitude
             const numLongitude = position.coords.longitude
             //Testing
             //console.log(numLatitude)
             //console.log(numLongitude)
             try {
+                //Fetch with the base URL and captured latitude and longitude.
                 const objResponse = await fetch(strBaseURL + `latitude=${numLatitude}&longitude=${numLongitude}&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code&temperature_unit=fahrenheit&forecast_days=1`,{
                     method:'GET',
                     headers: {
@@ -89,6 +91,8 @@
                 arrRainChance = objData.hourly.precipitation_probability
                 //Testing
                 //console.log(arrTemperature)
+
+                //Calls the functions with the needed parameters.
                 translateJStoHTML(arrTemperature, arrHumidity, arrRainChance, arrWeatherCode)
                 getLocationFromCoords(numLatitude,numLongitude)
 
@@ -103,6 +107,7 @@
         //Function to reverse geolocate the users location using their coordinates.
         async function getLocationFromCoords(lat,long){
             try{
+                //Fetch command for the API with the devices captured latitude and longitude
                 const objResponse = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=d7ebe10f38a74425b5eec221a8e8e723`,{
                     method:'GET',
                     headers: {
@@ -119,8 +124,9 @@
                 //console.log(objData)
                 //console.log(objData.features[0].properties.city)
                 //console.log(objData.features[0].properties.state_code)
+
+                //Combine the city and state into one variable
                 let strlocation = objData.features[0].properties.city + ", " + objData.features[0].properties.state_code
-                //console.log(strlocation)
 
                 let parLocation = document.getElementById("txtLocation")
                 let tempPar = document.createElement('p')
@@ -152,7 +158,7 @@
             tempPar.innerText = arrTemperature[0]
             parTemps.appendChild(tempPar)
             
-            //Translates the JS for Weather Icon and assigns it to an icon to made the code.
+            //Translates the JS for Weather Icon and assigns it to an icon to match the code.
             let tempSvg = document.createElement('svg')
             if(arrWeatherCode[0] == 1 || arrWeatherCode[0] == 2){
                  document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-sun-fill"></i>`
