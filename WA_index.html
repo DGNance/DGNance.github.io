@@ -19,12 +19,13 @@
         <form class="card col-12 col-md-6 col-lg-4 bg-dark" id="cardbody">
             <div class="card-body">
                 <h1 class="text-center mb-4 text-white">Weather Forecast</h1>
-                <h2>Hello</h2>
-                <p class="text-white" id="coords">Temperature</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-thermometer-low text-white" viewBox="0 0 16 16">
-                    <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585a1.5 1.5 0 0 1 1 1.415"/>
-                    <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1"/>
-                </svg>
+                <p class="text-white" id="coords">
+                    Temperature <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-thermometer-low text-white" viewBox="0 0 16 16">
+                        <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585a1.5 1.5 0 0 1 1 1.415"/>
+                        <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1"/>
+                    </svg>
+                </p>
+                <ul id="lstTemperature" class="text-white " style="list-style: none;"></ul>
             </div>
         </form>
     </div>
@@ -33,6 +34,9 @@
     <script>
         const strBaseURL = "https://api.open-meteo.com/v1/forecast?"
         strMessage = ''
+        var arrWeatherCode = []
+        var strWeatherIcon = ''
+        var arrTemperature = []
         //built in method to get the users location. Must ask for permission and is not supported by all browsers
         if(navigator.geolocation){
                 navigator.geolocation.getCurrentPosition(QueryLongitudeAndLatitude)
@@ -67,8 +71,12 @@
                 const objData = await objResponse.json()
                 //Testing
                 console.log(objData)
-                console.log(objData.hourly.temperature_2m)
-
+                //console.log(objData.hourly.temperature_2m)
+                arrWeatherCode = objData.hourly.weather_code
+                arrTemperature = objData.hourly.temperature_2m
+                //Testing
+                //console.log(arrTemperature)
+                translateJStoHTML(arrTemperature)
 
             } catch(objError){
                 Swal.fire({
@@ -77,6 +85,36 @@
                 })
             }
         }
+
+        function translateJStoHTML(arrTemperature){
+            console.log(arrTemperature)
+            let listTemps = document.getElementById("lstTemperature")
+            
+            for(i = 0;i < arrTemperature.length; ++i){
+                let tempList = document.createElement('li')
+                tempList.innerText = arrTemperature[i]
+                listTemps.appendChild(tempList)
+            }
+        }
+        //translateJStoHTML()
+        
+        // function WeatherCodeIcon(){
+        //     for(let i = 0; i < arrWeatherCode.length; i++){
+        //         arrWeatherCode[i] = 0
+        //         if(arrWeatherCode[i] = 0){
+        //             let tempString = "svg"
+        //             strWeatherIcon = document.createElement(tempString)
+        //             strWeatherIcon.innerText = '<svg id="weatherIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-drizzle-fill" viewBox="0 0 16 16"><path d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317m.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973"/></svg>'
+        //             document.div.appendChild(strWeatherIcon)
+        //             // var temp = document.createElement('svg');
+        //             // temp.innerHTML = weatherIcon;
+        //             // var htmlObject = weatherIcon.firstChild;
+        //             // htmlObject.getElementByID("weatherIcon")
+        //         }
+        //     }
+        
+        // }
+        // WeatherCodeIcon()
     </script>
 </body>
 </html>
