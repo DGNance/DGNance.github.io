@@ -16,24 +16,24 @@
 </head>
 <body class="bg-primary-subtle">
     <div class="d-flex min-vh-100 justify-content-center align-items-center">
-        <form class="card col-12 col-md-6 col-lg-4 bg-dark" id="cardbody">
+        <form class="card col-12 col-md-8 col-lg-3 bg-dark" id="cardbody">
             <div class="card-body">
                 <h4 class="text-center text-white mt-3"><i class="bi bi-geo-fill"></i></h4>
-                <h2 class="text-center mb-4 text-white">Cookeville, TN</h2>
+                <h2 class="text-center mb-4 text-white" id="txtLocation"></h2>
                 <h1 class="text-white text-center mt-4" id="WeatherIcon"></h1>
                 <h2 class="text-white text-center mt-2" id="txtTemperature"></h2>
                 <hr class="text-white">
-                <div style="display:inline-block;margin-left: 75px" class="text-center">
+                <div style="display:inline-block;" class="text-center">
                     <h3 class="text-white"><i class="bi bi-moisture"></i>  Humidity</h3>
-                    <h2 class="text-white" id="Humidity">
+                    <h4 class="text-white" id="Humidity">
                         <p id="txtHumidity" class="text-white" ></p>
-                    </h2>
+                    </h4>
                 </div>
-                <div style="display:inline-block;margin-left: 45px" class="text-center">
+                <div style="display:inline-block;margin-left: 25px" class="text-center">
                     <h3 class="text-white"><i class="bi bi-cloud-rain-heavy-fill"></i>  Chance of Rain</h3>
-                    <h2 class="text-white" id="RainPrecipitation">
+                    <h4 class="text-white" id="RainPrecipitation">
                         <p id="txtRain" class="text-white"></p>
-                    </h2> 
+                    </h4> 
                 </div>
                 <footer class="text-white">Data is courtesy of: <a href="https://open-meteo.com/en/docs">open-meteo.com</a></footer>
             </div>
@@ -89,6 +89,7 @@
                 //Testing
                 //console.log(arrTemperature)
                 translateJStoHTML(arrTemperature, arrHumidity, arrRainChance, arrWeatherCode)
+                getLocationFromCoords(numLatitude,numLongitude)
 
             } catch(objError){
                 Swal.fire({
@@ -96,6 +97,39 @@
                     icon:'error'
                 })
             }
+        }
+
+        async function getLocationFromCoords(lat,long){
+            try{
+                const objResponse = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=d7ebe10f38a74425b5eec221a8e8e723`,{
+                    method:'GET',
+                    headers: {
+                        'Content-Type':'application/json'
+                    }
+                })
+    
+                if(!objResponse.ok){
+                    throw new Error('HTTP Error Status',objResponse.status)
+                }
+    
+                const objData = await objResponse.json()
+                console.log(objData)
+                console.log(objData.features[0].properties.city)
+                console.log(objData.features[0].properties.state_code)
+                let strlocation = objData.features[0].properties.city + ", " + objData.features[0].properties.state_code
+                console.log(strlocation)
+
+                let parLocation = document.getElementById("txtLocation")
+                let tempPar = document.createElement('p')
+                tempPar.innerText = strlocation
+                parLocation.appendChild(tempPar)
+            
+            } catch(objError){
+                Swal.fire({
+                    title:'Something went wrong',
+                    icon:'error'
+                })
+            }  
         }
 
         function translateJStoHTML(arrTemperature, arrHumidity, arrRainChance, arrWeatherCode){
