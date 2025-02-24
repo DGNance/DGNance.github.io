@@ -18,15 +18,52 @@
     <div class="d-flex min-vh-100 justify-content-center align-items-center">
         <form class="card col-12 col-md-6 col-lg-4 bg-dark" id="cardbody">
             <div class="card-body">
+                <style type="text/css">
+                    #Time {display:inline-block;margin-right:35px;}
+                    #WeatherIcon {display:inline-block;margin-right:35px;}
+                    #RainPrecipitation {display:inline-block;margin-right:35px;}
+                    #Humidity {display:inline-block;margin-right:35px;}
+                    #temperature {display:inline-block;margin-right:35px;}
+
+                    .list-container {
+                      display: flex;
+                      justify-content: space-around; /* Optional: Space out the lists */
+                      gap: 20px;
+                    }
+                
+                    ul {
+                      list-style-type: none; /* Optional: Remove bullets */
+                      margin: 0;
+                      padding: 0;
+                    }
+                </style>
                 <h1 class="text-center mb-4 text-white">Weather Forecast</h1>
-                <p class="text-white" id="coords">
-                    Temperature <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-thermometer-low text-white" viewBox="0 0 16 16">
-                        <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585a1.5 1.5 0 0 1 1 1.415"/>
-                        <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1"/>
-                    </svg>
-                </p>
-                <ul id="lstTemperature" class="text-white " style="list-style: none;"></ul>
+                <h5 class="text-white" id="Time">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/></svg>
+                </h5>
+                <h5 class="text-white" id="WeatherIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/></svg>
+                </h5>
+                <h5 class="text-white" id="RainPrecipitation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-rain-heavy-fill" viewBox="0 0 16 16"><path d="M4.176 11.032a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m3 0a.5.5 0 0 1 .292.643l-1.5 4a.5.5 0 0 1-.936-.35l1.5-4a.5.5 0 0 1 .644-.293m.229-7.005a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973"/></svg>
+                </h5>
+                <h5 class="text-white" id="Humidity">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moisture" viewBox="0 0 16 16"><path d="M13.5 0a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V7.5h-1.5a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V15h-1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5zM7 1.5l.364-.343a.5.5 0 0 0-.728 0l-.002.002-.006.007-.022.023-.08.088a29 29 0 0 0-1.274 1.517c-.769.983-1.714 2.325-2.385 3.727C2.368 7.564 2 8.682 2 9.733 2 12.614 4.212 15 7 15s5-2.386 5-5.267c0-1.05-.368-2.169-.867-3.212-.671-1.402-1.616-2.744-2.385-3.727a29 29 0 0 0-1.354-1.605l-.022-.023-.006-.007-.002-.001zm0 0-.364-.343zm-.016.766L7 2.247l.016.019c.24.274.572.667.944 1.144.611.781 1.32 1.776 1.901 2.827H4.14c.58-1.051 1.29-2.046 1.9-2.827.373-.477.706-.87.945-1.144zM3 9.733c0-.755.244-1.612.638-2.496h6.724c.395.884.638 1.741.638 2.496C11 12.117 9.182 14 7 14s-4-1.883-4-4.267"/></svg>
+                </h5>
+                <h5 class="text-white" id="temperature">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-thermometer-low text-white" viewBox="0 0 16 16"><path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585a1.5 1.5 0 0 1 1 1.415"/><path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1"/></svg>
+                </h5>
+                <hr class="text-white">
+
+                <div class="list-container">
+                    <ul id="lstTime" class="text-white" style="list-style: none;"></ul>
+                    <ul id="lstWeather" class="text-white" style="list-style: none;"></ul>
+                    <ul id="lstRain" class="text-white" style="list-style: none;"></ul>
+                    <ul id="lstHumidity" class="text-white" style="list-style: none;"></ul>
+                    <ul id="lstTemperature" class="text-white" style="list-style: none;"></ul>
+                </div>
             </div>
+            <footer class="text-white">Data is courtesy of: <a href="https://open-meteo.com/en/docs">open-meteo.com</a></footer>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -74,9 +111,12 @@
                 //console.log(objData.hourly.temperature_2m)
                 arrWeatherCode = objData.hourly.weather_code
                 arrTemperature = objData.hourly.temperature_2m
+                arrHumidity = objData.hourly.relative_humidity_2m
+                arrRainChance = objData.hourly.precipitation_probability
+                arrTime = objData.hourly.time
                 //Testing
                 //console.log(arrTemperature)
-                translateJStoHTML(arrTemperature)
+                translateJStoHTML(arrTemperature, arrHumidity, arrRainChance, arrWeatherCode, arrTime)
 
             } catch(objError){
                 Swal.fire({
@@ -86,13 +126,45 @@
             }
         }
 
-        function translateJStoHTML(arrTemperature){
+        function translateJStoHTML(arrTemperature, arrHumidity, arrRainChance, arrWeatherCode, arrTime){
             console.log(arrTemperature)
+            console.log(arrWeatherCode)
+            console.log(arrHumidity)
+            console.log(arrTime)
+            console.log(arrRainChance)
             let listTemps = document.getElementById("lstTemperature")
-            
-            for(i = 0;i < arrTemperature.length; ++i){
+            let listTimes = document.getElementById("lstTime")
+            let listWeather = document.getElementById("lstWeather")
+            let listRainChance = document.getElementById("lstRain")
+            let listHumidity = document.getElementById("lstHumidity")
+            for(i = 0;i < 1; ++i){
+                //arrTemperature[i] += "%"
                 let tempList = document.createElement('li')
                 tempList.innerText = arrTemperature[i]
+                listTemps.appendChild(tempList)
+            }
+            for(i = 0;i < 1; ++i){
+                //arrTemperature[i] += "%"
+                let tempList = document.createElement('li')
+                tempList.innerText = arrTime[i]
+                listTemps.appendChild(tempList)
+            }
+            for(i = 0;i < 1; ++i){
+                //arrTemperature[i] += "%"
+                let tempList = document.createElement('li')
+                tempList.innerText = arrWeatherCode[i]
+                listTemps.appendChild(tempList)
+            }
+            for(i = 0;i <1; ++i){
+                //arrTemperature[i] += "%"
+                let tempList = document.createElement('li')
+                tempList.innerText = arrRainChance[i]
+                listTemps.appendChild(tempList)
+            }
+            for(i = 0;i < 1; ++i){
+                //arrTemperature[i] += "%"
+                let tempList = document.createElement('li')
+                tempList.innerText = arrHumidity[i]
                 listTemps.appendChild(tempList)
             }
         }
