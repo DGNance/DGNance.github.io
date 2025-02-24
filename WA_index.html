@@ -60,12 +60,13 @@
                 })
         }
 
+        //Function to find the devices longitude and latitude for the API
         async function QueryLongitudeAndLatitude(position){
             const numLatitude = position.coords.latitude
             const numLongitude = position.coords.longitude
             //Testing
-            console.log(numLatitude)
-            console.log(numLongitude)
+            //console.log(numLatitude)
+            //console.log(numLongitude)
             try {
                 const objResponse = await fetch(strBaseURL + `latitude=${numLatitude}&longitude=${numLongitude}&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code&temperature_unit=fahrenheit&forecast_days=1`,{
                     method:'GET',
@@ -80,7 +81,7 @@
     
                 const objData = await objResponse.json()
                 //Testing
-                console.log(objData)
+                //console.log(objData)
                 //console.log(objData.hourly.temperature_2m)
                 arrWeatherCode = objData.hourly.weather_code
                 arrTemperature = objData.hourly.temperature_2m
@@ -99,6 +100,7 @@
             }
         }
 
+        //Function to reverse geolocate the users location using their coordinates.
         async function getLocationFromCoords(lat,long){
             try{
                 const objResponse = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${long}&apiKey=d7ebe10f38a74425b5eec221a8e8e723`,{
@@ -113,11 +115,12 @@
                 }
     
                 const objData = await objResponse.json()
-                console.log(objData)
-                console.log(objData.features[0].properties.city)
-                console.log(objData.features[0].properties.state_code)
+                //Testing
+                //console.log(objData)
+                //console.log(objData.features[0].properties.city)
+                //console.log(objData.features[0].properties.state_code)
                 let strlocation = objData.features[0].properties.city + ", " + objData.features[0].properties.state_code
-                console.log(strlocation)
+                //console.log(strlocation)
 
                 let parLocation = document.getElementById("txtLocation")
                 let tempPar = document.createElement('p')
@@ -133,22 +136,23 @@
         }
 
         function translateJStoHTML(arrTemperature, arrHumidity, arrRainChance, arrWeatherCode){
-            console.log(arrTemperature)
-            console.log(arrWeatherCode)
-            console.log(arrHumidity)
-            console.log(arrRainChance)
+            //Testing
+            //console.log(arrTemperature)
+            //console.log(arrWeatherCode)
+            //console.log(arrHumidity)
+            //console.log(arrRainChance)
             let parTemps = document.getElementById("txtTemperature")
             let parWeather = document.getElementById("txtWeather")
             let parRainChance = document.getElementById("txtRain")
             let parHumidity = document.getElementById("txtHumidity")
             
-            //Translates the JS for Temp and turns it into a paragraph elemt in HTML
+            //Translates the JS for Temp and turns it into a paragraph element in HTML
             arrTemperature[0] += "°F"
             let tempPar = document.createElement('p')
             tempPar.innerText = arrTemperature[0]
             parTemps.appendChild(tempPar)
             
-            //Translates the JS for Weather Icon and turns it into a paragraph elemt in HTML
+            //Translates the JS for Weather Icon and assigns it to an icon to made the code.
             let tempSvg = document.createElement('svg')
             if(arrWeatherCode[0] == 1 || arrWeatherCode[0] == 2){
                  document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-sun-fill"></i>`
@@ -166,13 +170,13 @@
                  document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-brightness-high-fill"></i>`
             }
             
-            //Translates the JS for Rain Chance and turns it into a paragraph elemt in HTML
+            //Translates the JS for Rain Chance and turns it into a paragraph element in HTML
             arrRainChance[0] += "%"
             let tempPar3 = document.createElement('p')
             tempPar3.innerText = arrRainChance[0]
             parRainChance.appendChild(tempPar3)
             
-            //Translates the JS for Humidity and turns it into a paragraph elemt in HTML
+            //Translates the JS for Humidity and turns it into a paragraph element in HTML
             arrHumidity[0] += "%"
             let tempPar4 = document.createElement('p')
             tempPar4.innerText = arrHumidity[0]
