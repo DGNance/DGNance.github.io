@@ -20,7 +20,7 @@
             <div class="card-body">
                 <h4 class="text-center text-white mt-3"><i class="bi bi-geo-fill"></i></h4>
                 <h2 class="text-center mb-4 text-white" id="txtLocation"></h2>
-                <h1 class="text-white text-center mt-4 mb-4" id="WeatherIcon"></h1>
+                <h1 class="text-white text-center mt-4 mb-3" id="svgWeatherIcon"></h1>
                 <h2 class="text-white text-center mt-2" id="txtTemperature"></h2>
                 <hr class="text-white">
                 <div style="display:inline-block;" class="text-center">
@@ -161,19 +161,19 @@
             //Translates the JS for Weather Icon and assigns it to an icon to match the code.
             let tempSvg = document.createElement('svg')
             if(arrWeatherCode[0] == 1 || arrWeatherCode[0] == 2){
-                 document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-sun-fill"></i>`
+                 document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-cloud-sun-fill"></i>`
             } else if(arrWeatherCode[0] == 45 || arrWeatherCode[0] == 48){
-                 document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-haze-fill"></i>`
+                 document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-cloud-haze-fill"></i>`
             } else if(arrWeatherCode[0] == 61 || arrWeatherCode[0] == 63 || arrWeatherCode[0] == 65){
-                 document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-rain-fill"></i>`
+                 document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-cloud-rain-fill"></i>`
             } else if(arrWeatherCode[0] == 71 || arrWeatherCode[0] == 73 || arrWeatherCode[0] == 75 || arrWeatherCode[0] == 77 || arrWeatherCode[0] == 85 || arrWeatherCode[0] == 86){
-                 document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-snow-fill"></i>`
+                 document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-cloud-snow-fill"></i>`
             } else if(arrWeatherCode[0] == 95 || arrWeatherCode[0] == 96 || arrWeatherCode[0] == 99){
-                 document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-lightning-rain-fill"></i>>`
+                 document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-cloud-lightning-rain-fill"></i>`
             } else if(arrWeatherCode[0] == 3){
-                document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-cloud-fill"></i>`
+                document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-cloud-fill"></i>`
             } else{
-                 document.getElementById("WeatherIcon").innerHTML = `<i class="bi bi-brightness-high-fill"></i>`
+                 document.getElementById("svgWeatherIcon").innerHTML = `<i class="bi bi-brightness-high-fill"></i>`
             }
             
             //Translates the JS for Rain Chance and turns it into a paragraph element in HTML
